@@ -37,7 +37,7 @@ router.post('/users/signup', async(req,res) =>{
         if(emailUser){
             req.flash('error_msg','El email ya está en uso');
             res.redirect('/users/signup');
-        }
+        } 
         
         const newUser = new User({name, email, password});
         newUser.password = await newUser.encryptPassword(password);
