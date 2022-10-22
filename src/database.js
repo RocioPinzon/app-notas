@@ -20,10 +20,3 @@ mongoose.connect(dbUrl,
         
 })
 .catch(err => console.log(err));
-
-/*
-{
-    {Employeeid: 1; EmployeeName: Guru99};
-    {Employeeid: 2; EmployeeName: Joe};
-    {Employeeid: 3; EmployeeName: Martin};
-}*/
