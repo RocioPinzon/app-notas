@@ -33,7 +33,7 @@ router.post('/users/signup', async(req,res) =>{
     if(errors.length > 0){
         res.render('users/signup', {errors,name, email, password, confirmPassword});
     }else{
-        const emailUser = await User.findOne({email:email});
+        const emailUser = await User.findOne({email: email});
         if(emailUser){
             req.flash('error_msg','El email ya está en uso');
             res.redirect('/users/signup');
