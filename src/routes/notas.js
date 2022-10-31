@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Nota = require('../models/Nota');
 
+const { isAuthenticated } = require('../helpers/auth');
 
-router.get('/notas/add', (req,res) => {
+router.get('/notas/add', isAuthenticated, (req,res) => {
     res.render('notas/new-note');
 });
 
-router.post('/notas/new-note', async (req,res)=>{
+router.post('/notas/new-note', isAuthenticated, async (req,res)=>{
     /*console.log(req.body);
     res.send('ok');*/
     console.log(req.body)
@@ -27,6 +28,7 @@ router.post('/notas/new-note', async (req,res)=>{
         });
     }else{
        const newNote = new Nota({ title, description });
+       newNote.user=req.user.id;
        await newNote.save();
        req.flash('success_msg','Nota Guardada Correctamente');
        console.log(newNote);
@@ -35,19 +37,21 @@ router.post('/notas/new-note', async (req,res)=>{
     
 });
 
-router.get('/notas', async(req,res) => {
+router.get('/notas', isAuthenticated, async(req,res) => {
 
-    const notas = await Nota.find().lean().sort({date:'desc'});
+    const notas = await Nota.find({user: req.user.id}).lean().sort({date:'desc'});
     res.render('notas/all-notes', { notas });
+    
+
 });
 
-router.get('/notas/edit/:id', async(req,res) => {
+router.get('/notas/edit/:id', isAuthenticated, async(req,res) => {
     const reqParamId = req.params.id;
     const note = await Nota.findById(reqParamId).lean();
     res.render('notas/edit-note', {note});
 });
 
-router.put('/notas/edit-note/:id', async(req,res)=>{
+router.put('/notas/edit-note/:id', isAuthenticated, async(req,res)=>{
 
     const {title,description} = req.body;
     await Nota.findByIdAndUpdate(req.params.id,{ title, description});
@@ -56,7 +60,7 @@ router.put('/notas/edit-note/:id', async(req,res)=>{
     res.redirect('/notas');
 });
 
-router.delete('/notas/delete/:id', async(req,res) => {
+router.delete('/notas/delete/:id', isAuthenticated, async(req,res) => {
     const reqParamId = req.params.id;
     await Nota.findByIdAndDelete(reqParamId).lean();
     req.flash('success_msg','Nota Eliminada Correctamente');

@@ -4,3 +4,14 @@ body{
     background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
+
+.imgBox{
+    width: 150px;
+    /* display: contents; */
+    margin: 0 auto;
+    margin-top: 35px;
+}
+
+.logo{
+    width: 100%;
+}

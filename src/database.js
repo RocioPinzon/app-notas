@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const dbUrl = 'mongodb+srv://rpinzon:samoloPerra01@cluster0.gyhgoyq.mongodb.net/db-gesterr?retryWrites=true&w=majority';
+//const dbUrl = 'mongodb+srv://rpinzon:samoloPerra01@cluster0.gyhgoyq.mongodb.net/db-gesterr?retryWrites=true&w=majority';
 //mongoose.connect();
-//mongoose.connect('mongodb://localhost/notes-db-app',
+//const dbUrl = 'mongodb://localhost/notes-db-app');
 
-mongoose.connect(dbUrl,
+mongoose.connect("mongodb://localhost/notes-db-app",
 {
         useNewUrlParser: true,
         useUnifiedTopology: true,
